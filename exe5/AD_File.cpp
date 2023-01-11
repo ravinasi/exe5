@@ -9,7 +9,6 @@ bool AD_File::isIligalChar(string s)
 	if (s.find('?') != string::npos) return true;
 	if (s.find('>') != string::npos) return true;
 	if (s.find('*') != string::npos) return true;
-	//if (s.find(':') != string::npos) return true;
 	if (s.find('|') != string::npos) return true;
 	if (s.find('/') != string::npos) return true;
 	if (s.find('\\') != string::npos) return true;

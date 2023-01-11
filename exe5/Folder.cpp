@@ -33,8 +33,8 @@ bool Folder::operator==(const AD_File& other) const throw(const char*)
 	{
 		for (int i = 0; i < sizeAD; i++)
 		{
-			if (!strcmp(typeid(arrAD[i]).name(), "class DataFile")) // check all data files in array
-				if (!strcmp(typeid(ptr->arrAD[i]).name(), "class DataFile"))
+			if (!strcmp(typeid(arrAD[i][0]).name(), "class DataFile")) // check all data files in array
+				if (!strcmp(typeid(ptr->arrAD[i][0]).name(), "class DataFile"))
 				{
 					if ((*(DataFile*)arrAD[i]).getNmae() != (*(DataFile*)ptr->arrAD[i]).getNmae())
 						return false;
@@ -42,8 +42,8 @@ bool Folder::operator==(const AD_File& other) const throw(const char*)
 		}
 		for (int i = 0; i < sizeAD; i++)
 		{
-			if(!strcmp(typeid(arrAD[i]).name(), "class Folder")) // check all folders
-				if (!strcmp(typeid(ptr->arrAD[i]).name(), "class Folder"))
+			if(!strcmp(typeid(arrAD[i][0]).name(), "class Folder")) // check all folders
+				if (!strcmp(typeid(ptr->arrAD[i][0]).name(), "class Folder"))
 				{
 					if ((*(Folder*)arrAD[i]) == (*(Folder*)ptr->arrAD[i]))
 						break;
@@ -170,13 +170,13 @@ void Folder::dir()
 			cout << fixed << setprecision(2) << size_f << " KB " << arrAD[i][0].getNmae() << endl;
 		}
 	}
+	cout << "________________________________" << endl << endl;
 }
 
 Folder* Folder::cd(string path) throw(const string)
 {
 	int findNext = path.find_first_of(92);
 	string goinFolder = path.substr(0, findNext); // what folder to get int
-	///Folder Fptr = Folder::root;
 	Folder* proot = &Folder::root;
 	path = path.substr(findNext + 1);
 	return Folder::root.findFolderPointer(path, findNext, goinFolder, proot);
@@ -212,6 +212,23 @@ Folder* Folder::intoFolder(string _foldername) throw (const string)
 
 bool FC(Folder& currentDir, string source, string dest)
 {
-	
+	Folder* psource; Folder* pdest;
+	if (source[0] != '\\')
+		psource = Folder::root.cd(source);
+	else
+	{
+		string newsource = currentDir.folderPath;
+		newsource += source;
+		psource = Folder::root.cd(newsource);
+	}
+	if (dest[0] == '\\')
+	{
+		string newdest = currentDir.folderPath;
+		newdest += dest;
+		pdest = Folder::root.cd(newdest);
+	}
+	else pdest = Folder::root.cd(dest);
+	if (*psource == *pdest)
+		return true;
 	return false;
 }

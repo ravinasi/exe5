@@ -11,13 +11,6 @@ void main()
 	Folder* root = &Folder::root;
 	root->mkDir("C:");
 	root->mkDir("D:");
-
-	/*Folder* current = &Folder::root;
-	current = root->intoFolder("C:");
-	current->mkDir("newfolder");
-	current = Folder::cd("C:\\newfolder");*/
-
-
 	Folder* curr = Folder::cd("C:");
 	bool quit = false; string path;
 	string command, p_command;
@@ -51,17 +44,17 @@ void main()
 					command.substr(0, command.find('<') - 1));
 				continue;
 			}
-			/*if (command == "FC") {
+			if (command == "FC") {
 				cin.ignore(1);
 				cin >> p_command;
 				cin.ignore(1);
 				cin >> command;
-				if (fc(*curr, p_command, command) == true)
+				if (FC(*curr, p_command, command) == true)
 					cout << " equals\n";
 				else
 					cout << " not equals\n";
 				continue;
-			}*/
+			}
 		}
 		catch (const char* msg) { cout << msg << endl; }
 		catch (...) {
@@ -71,39 +64,3 @@ void main()
 	} while (!quit);
 }
 
-
-
-
-
-
-//void main()
-//{
-//	Folder folder_main("folder_main", "main");
-//	DataFile file1("file1.txt", "empty");
-//	DataFile file2("file2.txt", "dsbkhc");
-//	Folder folder1("folder1", " ");
-//	Folder folder2("folder2", " ");
-//	try {
-//		
-//		folder_main.addFileToArray(&file1);
-//		folder_main.addFileToArray(&file2);
-//		folder_main.mkfile("file3.txt", "");
-//		folder_main.addFileToArray(&folder1);
-//		folder_main.addFileToArray(&folder2);
-//		folder_main.mkDir("folder3");
-//		folder_main.dir();
-//		
-//	}
-//	catch(const char* error)
-//	{
-//		cout << error << endl;
-//	}
-//	catch (const string error)
-//	{
-//		cout << error << endl;
-//	}
-//	catch (...)
-//	{
-//		cout << " unexpected error" << endl;
-//	}
-//}
